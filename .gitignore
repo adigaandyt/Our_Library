@@ -40,3 +40,6 @@
 # System files
 /frontend/.DS_Store
 /frontend/Thumbs.db
+
+#modules for backend
+/backend/node_modules
