@@ -1,0 +1,10 @@
+section{
+    background-color: blueviolet;
+}
+form{
+    margin-top: 100px;
+    min-width: 300px;
+    max-width: 600px;
+
+    background-color: white;
+}
