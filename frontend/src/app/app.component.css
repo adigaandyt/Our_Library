@@ -29,10 +29,10 @@
     top: 0;
     left: 0;
     right: 0;
-    height: 60px;
+    height: 50px;
     display: flex;
     align-items: center;
-    background-color: #1976d2;
+    background-color: #ffffff;
     color: white;
     font-weight: 600;
   }
@@ -241,6 +241,8 @@
     margin-left: 4px;
     font-weight: 600;
   }
+
+
 
   .github-star-badge:hover {
     background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
