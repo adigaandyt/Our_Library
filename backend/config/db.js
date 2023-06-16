@@ -1,3 +1,4 @@
+//Config used to connect to the database
 const mongoose = require('mongoose')
 
 const connectDB = async () => {
@@ -5,7 +6,8 @@ const connectDB = async () => {
     const conn = await mongoose.connect(process.env.MONGO_URL)
     console.log(`MongoDB connected ${conn.connection.host}`.cyan.underline)
   } catch (error) {
-    console.log(`Error : ${error.message}`)
+    console.log(`Couldn't connect to database`.underline.red)
+    console.log(`${error.message}`)
     process.exist(1)
   }
 }

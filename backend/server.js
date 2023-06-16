@@ -1,41 +1,30 @@
 const express = require('express')
-const cors = require('cors') //provides express middleware to enable CORS
-const cookieSession = require('cookie-session')
+const dotenv = require('dotenv').config()
+const colors = require('colors')
+const PORT = process.env.PORT || 5000
+const connectDB = require('./config/db')
+const router = require('./routes/user.routes')
 
+console.log('Connecting to database...')
+connectDB()
+
+//requests will be sent as a urlencoded JSON
 const app = express()
-
-var corsOptions = {
-  origin: 'http://localhost:8081',
-}
-
-app.use(cors(corsOptions))
-
-// parse requests of content-type - application/json
 app.use(express.json())
+app.use(express.urlencoded({ extended: false }))
 
-// parse requests of content-type - application/x-www-form-urlencoded
-app.use(express.urlencoded({ extended: true }))
-
-app.use(
-  cookieSession({
-    name: 'library-session',
-    //In a real app use the .env folder to keep the secret
-    secret: 'COOKIE_SECRET', // should use as secret environment variable
-    httpOnly: true,
-  })
-)
-
-// simple route
 app.get('/', (req, res) => {
-  res.json({ message: 'Welcome to library app' })
+  console.log('main get')
+  res.json({ message: 'main get' })
 })
 
-app.get('/login', (req, res) => {
-  res.json({ message: 'This is the login page' })
+//Routes
+app.post('/', (req, res) => {
+  console.log('main post')
+  res.json({ message: 'main post' })
 })
+app.use('/api/users', router)
 
-// set port, listen for requests
-const PORT = process.env.PORT || 8080
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}.`)
+  console.log(`Server Started, Listening to ${PORT}`)
 })
