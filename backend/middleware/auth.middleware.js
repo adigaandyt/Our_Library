@@ -2,20 +2,21 @@
 const jwt = require('jsonwebtoken')
 const asyncHandler = require('express-async-handler')
 const User = require('../models/user.model')
+const colors = require('colors')
 
 const protect = asyncHandler(async (req, res, next) => {
   let token
 
   if (
     //Check if the given token exists and starts with bearer(JSON web token should)
-    req.header.authorization &&
-    req.header.authorization.startsWith('Bearer')
+    req.headers.authorization &&
+    req.headers.authorization.startsWith('Bearer ')
   ) {
     try {
-      const auth = req.header.authorization.toString() //grab the whole auth
+      const auth = req.headers.authorization.toString() //grab the whole auth
       token = auth.split(' ')[1] //grab the token part (remove bearer)
       const decoded = jwt.verify(token, process.env.JWT_KEY) //verify the token
-      console.log(`This is the decoded: \n ${decoded}`)
+
       //Set the requester to the user in the token
       req.user = await User.findById(decoded.id).select('-password')
 

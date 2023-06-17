@@ -8,10 +8,10 @@ const {
   loginUser,
   getMe,
 } = require('../controllers/user.controller')
-const { protect } = require('../middleware/authMiddleware')
+const { protect } = require('../middleware/auth.middleware.js')
 
 //Routes:
-router.post('/', registerUser)
+router.post('/register', registerUser)
 router.post('/login', loginUser)
 router.get('/me', protect, getMe)
 
