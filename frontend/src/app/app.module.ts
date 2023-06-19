@@ -6,6 +6,10 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { HomeComponent } from './pages/home/home.component';
+import { NewMovieComponentComponent } from './pages/new-movie.component/new-movie.component.component';
+import { NewMovieComponent } from './pages/new-movie/new-movie.component';
+import { NewReviewComponent } from './pages/new-review/new-review.component';
+import { ReviewsComponent } from './pages/reviews/reviews.component';
 
 @NgModule({
   declarations: [
@@ -13,6 +17,10 @@ import { HomeComponent } from './pages/home/home.component';
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    NewMovieComponentComponent,
+    NewMovieComponent,
+    NewReviewComponent,
+    ReviewsComponent,
   ],
   imports: [BrowserModule, AppRoutingModule],
   providers: [],

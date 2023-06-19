@@ -4,6 +4,7 @@ const Review = mongoose.model(
   'Review',
   new mongoose.Schema({
     review: String,
+    rating: { type: number, min: 0, max: 5 },
     user: [
       {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,4 +14,4 @@ const Review = mongoose.model(
   })
 )
 
-module.exports = Movie
+module.exports = Review

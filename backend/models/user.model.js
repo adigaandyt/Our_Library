@@ -15,6 +15,11 @@ const User = mongoose.model(
       type: String,
       required: [true, 'Please enter a password'],
     },
+    isAdmin: {
+      type: Boolean,
+      required: true,
+      default: false,
+    },
   })
 )
 

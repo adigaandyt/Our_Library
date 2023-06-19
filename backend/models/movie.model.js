@@ -4,8 +4,7 @@ const Movie = mongoose.model(
   'Movie',
   new mongoose.Schema({
     title: String,
-    email: String,
-    reviews: [
+    review: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Review',
