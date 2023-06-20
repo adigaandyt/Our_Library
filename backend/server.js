@@ -4,12 +4,15 @@ const colors = require('colors')
 const PORT = process.env.PORT || 5000
 const connectDB = require('./config/db')
 const router = require('./routes/user.routes')
+const galRouter = require('./routes/gallery.routes')
+const cors = require('cors')
 
 console.log('Connecting to database...')
 connectDB()
 
 //requests will be sent as a urlencoded JSON
 const app = express()
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 
@@ -24,6 +27,7 @@ app.post('/', (req, res) => {
   res.json({ message: 'main post' })
 })
 app.use('/api/users', router)
+app.use('/api/images', galRouter)
 
 app.listen(PORT, () => {
   console.log(`Server Started, Listening to ${PORT}`)

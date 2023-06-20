@@ -1,3 +1,6 @@
 <!-- Page where admins upload new movies to the databse -->
 <!-- Should have, movie title and a picture to upload -->
 <p>new-movie works!</p>
+<input type="file" (change)="onFileSelected($event)">
+<button mat-mini-fab color="primary" class="upload-btn" 
+(click)="onUploadClick()">upload</button>
