@@ -1,6 +1,22 @@
 <!-- Page where admins upload new movies to the databse -->
 <!-- Should have, movie title and a picture to upload -->
 <p>new-movie works!</p>
-<input type="file" (change)="onFileSelected($event)">
-<button mat-mini-fab color="primary" class="upload-btn" 
-(click)="onUploadClick()">upload</button>
+<div class="input-group mb-3">
+  <div class="input-group-prepend">
+    <span class="input-group-text" id="basic-addon1">Image URL</span>
+  </div>
+  <input
+    type="text"
+    class="form-control"
+    placeholder="Paste Image Link here"
+    aria-describedby="basic-addon1"
+  />
+</div>
+<button
+  mat-mini-fab
+  color="primary"
+  class="upload-btn"
+  (click)="onUploadClick()"
+>
+  upload
+</button>
