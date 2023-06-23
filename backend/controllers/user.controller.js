@@ -43,6 +43,7 @@ const registerUser = asyncHanlder(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id), //Generate a signed token
+      //is admin is false by default
     })
   } else {
     res.status(400).send('user data error')
@@ -66,6 +67,7 @@ const loginUser = asyncHanlder(async (req, res) => {
       name: user.name,
       email: user.email,
       token: generateToken(user._id),
+      isAdmin: user.isAdmin,
     })
   } else {
     res.status(400).send('Invalid Credentials')

@@ -12,6 +12,8 @@ import { MovieCardComponent } from './cards/movie-card/movie-card.component';
 import { ReviewCardComponent } from './cards/review-card/review-card.component';
 import { MovieCardListComponent } from './cards/movie-card-list/movie-card-list.component';
 import { ReviewCardListComponent } from './cards/review-card-list/review-card-list.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,12 @@ import { ReviewCardListComponent } from './cards/review-card-list/review-card-li
     MovieCardListComponent,
     ReviewCardListComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
