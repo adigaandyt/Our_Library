@@ -14,6 +14,7 @@ import { MovieCardListComponent } from './cards/movie-card-list/movie-card-list.
 import { ReviewCardListComponent } from './cards/review-card-list/review-card-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +29,7 @@ import { HttpClientModule } from '@angular/common/http';
     ReviewCardComponent,
     MovieCardListComponent,
     ReviewCardListComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,

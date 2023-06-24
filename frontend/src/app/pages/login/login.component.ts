@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,11 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./login.component.css'],
 })
 export class LoginComponent {
-  constructor(private router: Router, private http: HttpClient) {}
+  constructor(
+    private router: Router,
+    private http: HttpClient,
+    private userService: UsersService
+  ) {}
   //
   regForm = new FormGroup({
     email: new FormControl(''),
@@ -29,6 +34,7 @@ export class LoginComponent {
       //send the POST request
       this.payload = <JSON>this.regForm.value;
       this.http.post<any>(this.url, this.payload).subscribe(
+        //send info to backend login
         (response) => {
           console.log('API response:', response);
           console.log('Name: ' + response.name);
@@ -36,8 +42,11 @@ export class LoginComponent {
           console.log('password: ' + response.password);
           console.log('id: ' + response._id);
           console.log('token: ' + response.token);
+          this.userService.storeUserData(response.token);
+          this.router.navigate(['']);
         },
         (error) => {
+          alert('Invalid Credentials');
           console.error('API error:', error);
           // Handle any errors that occurred
         }
