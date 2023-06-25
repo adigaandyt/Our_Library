@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { MoviesService } from '../../services/movies.service';
 import { Router } from '@angular/router';
-import { User } from '../../interfaces/user';
+import { Movie } from '../../interfaces/movie';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Component({
@@ -23,11 +23,18 @@ export class NewMovieComponent {
     title: new FormControl(''),
   });
 
-  url = 'http://localhost:8000/api/users/register'; // Replace with your backend URL
-  headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  url = 'http://localhost:8000/api/movies/new_movie'; // Replace with your backend URL
+
   payload: any = {};
 
   newMovieSubmit() {
+    const newMovie: Movie = {
+      img: this.regForm.value.img?.toString(),
+      title: this.regForm.value.title?.toString(),
+      desc: this.regForm.value.desc?.toString(),
+    };
+    this.moviesService.addMovie(newMovie);
+
     console.log(this.regForm.value.img);
     console.log(this.regForm.value.title);
     console.log(this.regForm.value.desc);

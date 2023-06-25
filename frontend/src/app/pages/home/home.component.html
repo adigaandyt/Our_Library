@@ -3,28 +3,18 @@
 <!-- nav bar allows admins to add new movies -->
 <!-- non admins will open a movie and press a + sign to add a review -->
 
-<div class="content mt-2 align-items-center">
-  <div fxLayout="row wrap" fxLayoutGap="12px grid">
+<div class="content mt-2">
+  <div fxLayout="row wrap center center" fxLayoutGap="12px grid">
     <div
       fx-layout-align-stretch
       fx-layout-align-space-evenly-stretch
       *ngFor="let num of [1, 2, 3, 4, 7, 8]"
     >
-      <div class="card" style="width: 250px">
-        <img
-          class="card-img-top"
-          src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg"
-          alt="Card image cap"
-        />
-        <div class="card-body">
-          <h5 class="card-title">Card title {{ num }}</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">To Reviews</a>
-        </div>
-      </div>
+      <app-movie-card
+        [img]="message"
+        [desc]="message"
+        [title]="message"
+      ></app-movie-card>
     </div>
   </div>
 </div>

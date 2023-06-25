@@ -7,7 +7,7 @@ const User = require('../models/user.model')
 const Movie = require('../models/movie.model')
 const Review = require('../models/review.model')
 
-const addNewMovie = asyncHanlder(async (req, res) => {
+const addMovie = asyncHanlder(async (req, res) => {
   const { title, review, img } = req.body
 
   const movieExists = await Movie.findOne({ title })
@@ -40,14 +40,6 @@ const deleteReview = asyncHanlder(async (req, res) => {
 })
 
 const addReview = asyncHanlder(async (req, res) => {
-  const { isadmin, title } = req.body
-
-  if (isadmin) {
-    Movie.findOneAndDelete({ title })
-  }
-})
-
-const addMovie = asyncHanlder(async (req, res) => {
   const { isadmin, title } = req.body
 
   if (isadmin) {

@@ -1,13 +1,21 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-movie-card',
   templateUrl: './movie-card.component.html',
   styleUrls: ['./movie-card.component.css'],
 })
-export class MovieCardComponent {
+export class MovieCardComponent implements OnInit {
+  @Input() img: string;
+  @Input() title: string;
+  @Input() desc: string;
+
+  constructor() {}
+
+  ngOnInit(): void {}
+
   movie = {
-    title: 'Movie title',
+    title: 'woods',
     desc: 'some long descrption',
     _id: 'beeg long id !@#!@#',
     imageUrl:

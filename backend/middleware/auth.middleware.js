@@ -6,7 +6,12 @@ const colors = require('colors')
 
 const protect = asyncHandler(async (req, res, next) => {
   let token
-
+  console.log('---------------req-------------')
+  const authorizationValue = req.body.lazyUpdate.find(
+    (item) => item.name === 'Authorization'
+  ).value
+  console.log(authorizationValue)
+  console.log('-------------------------------')
   if (
     //Check if the given token exists and starts with bearer(JSON web token should)
     req.headers.authorization &&
@@ -27,6 +32,7 @@ const protect = asyncHandler(async (req, res, next) => {
     }
   }
   if (!token) {
+    console.log('denied')
     res.status(401).send({ message: 'Not Authorized' })
   }
 })
