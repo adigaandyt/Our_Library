@@ -1,29 +1,30 @@
 <!-- Main home page showing all the movies -->
 <!-- Movies show up as cards with a picture and the title and rating beneath -->
-<!-- nav bar at the bottom allows admins to add new movies -->
+<!-- nav bar allows admins to add new movies -->
 <!-- non admins will open a movie and press a + sign to add a review -->
-<p>Gome page</p>
-<div action="">
-  <div class="card col-sm-6 col-md-4" style="width: 10rem">
-    <img class="card-img-top" src="..." alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
-    </div>
-  </div>
-  <div class="card col-sm-6 col-md-2" style="width: 10rem">
-    <img class="card-img-top" src="..." alt="Card image cap" />
-    <div class="card-body">
-      <h5 class="card-title">Card title</h5>
-      <p class="card-text">
-        Some quick example text to build on the card title and make up the bulk
-        of the card's content.
-      </p>
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+
+<div class="content mt-2 align-items-center">
+  <div fxLayout="row wrap" fxLayoutGap="12px grid">
+    <div
+      fx-layout-align-stretch
+      fx-layout-align-space-evenly-stretch
+      *ngFor="let num of [1, 2, 3, 4, 7, 8]"
+    >
+      <div class="card" style="width: 250px">
+        <img
+          class="card-img-top"
+          src="https://m.media-amazon.com/images/M/MV5BNGVjNWI4ZGUtNzE0MS00YTJmLWE0ZDctN2ZiYTk2YmI3NTYyXkEyXkFqcGdeQXVyMTkxNjUyNQ@@._V1_FMjpg_UX1000_.jpg"
+          alt="Card image cap"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Card title {{ num }}</h5>
+          <p class="card-text">
+            Some quick example text to build on the card title and make up the
+            bulk of the card's content.
+          </p>
+          <a href="#" class="btn btn-primary">To Reviews</a>
+        </div>
+      </div>
     </div>
   </div>
 </div>

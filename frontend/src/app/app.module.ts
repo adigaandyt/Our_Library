@@ -15,6 +15,9 @@ import { ReviewCardListComponent } from './cards/review-card-list/review-card-li
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ToastrModule } from 'ngx-toastr';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -36,6 +39,9 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot(),
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

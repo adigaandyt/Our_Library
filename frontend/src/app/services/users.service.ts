@@ -11,6 +11,7 @@ export class UsersService {
   private users$: Subject<User[]> = new Subject();
   authToken: any;
   myUser: any;
+  isAdmin: boolean = false;
 
   constructor(private httpClient: HttpClient) {}
 
@@ -29,7 +30,21 @@ export class UsersService {
   storeUserData(data: any) {
     localStorage.setItem('id_token', data.token);
     localStorage.setItem('name', data.name);
+    localStorage.setItem('isAdmin', data.isAdmin);
     this.authToken = data.token;
     this.myUser = data.name;
+    this.isAdmin = data.isAdmin;
+  }
+
+  logoutUser() {
+    this.authToken = null;
+    this.myUser = null;
+    this.isAdmin = false;
+    localStorage.clear();
+  }
+
+  loadToken() {
+    const token = localStorage.getItem('id_token');
+    this.authToken = token;
   }
 }

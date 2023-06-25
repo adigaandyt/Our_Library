@@ -1,22 +1,52 @@
 <!-- Page where admins upload new movies to the databse -->
 <!-- Should have, movie title and a picture to upload -->
-<p>new-movie works!</p>
-<div class="input-group mb-3">
-  <div class="input-group-prepend">
-    <span class="input-group-text" id="basic-addon1">Image URL</span>
-  </div>
-  <input
-    type="text"
-    class="form-control"
-    placeholder="Paste Image Link here"
-    aria-describedby="basic-addon1"
-  />
-</div>
-<button
-  mat-mini-fab
-  color="primary"
-  class="upload-btn"
-  (click)="onUploadClick()"
+<form
+  class="mx-auto col-10 col-md-8 col-lg-6"
+  [formGroup]="regForm"
+  (ngSubmit)="newMovieSubmit()"
 >
-  upload
-</button>
+  <div class="justify-content-center align-items-center">
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Image URL</span>
+      </div>
+      <input
+        formControlName="img"
+        type="text"
+        class="form-control"
+        placeholder="Paste Image Link here"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="input-group mb-2">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">Movie Title</span>
+      </div>
+      <input
+        formControlName="title"
+        type="text"
+        class="form-control"
+        placeholder="Enter Movie Title"
+        aria-describedby="basic-addon1"
+      />
+    </div>
+    <div class="input-group mb-3">
+      <span class="input-group-text">Movie <br />Description</span>
+      <textarea
+        formControlName="desc"
+        class="form-control"
+        rows="8"
+        aria-label="Description"
+      ></textarea>
+    </div>
+  </div>
+  <div class="row mx-auto">
+    <button
+      type="button"
+      type="submit"
+      class="btn btn-primary btn-lg btn-block"
+    >
+      Submit
+    </button>
+  </div>
+</form>

@@ -3,6 +3,7 @@ import { FormControl, FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { UsersService } from 'src/app/services/users.service';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -13,7 +14,8 @@ export class LoginComponent {
   constructor(
     private router: Router,
     private http: HttpClient,
-    private userService: UsersService
+    private userService: UsersService,
+    private toastr: ToastrService
   ) {}
   //
   regForm = new FormGroup({
@@ -36,13 +38,8 @@ export class LoginComponent {
       this.http.post<any>(this.url, this.payload).subscribe(
         //send info to backend login
         (response) => {
-          console.log('API response:', response);
-          console.log('Name: ' + response.name);
-          console.log('email: ' + response.email);
-          console.log('password: ' + response.password);
-          console.log('id: ' + response._id);
-          console.log('token: ' + response.token);
-          this.userService.storeUserData(response.token);
+          this.userService.storeUserData(response);
+          this.toastr.success('Successfully', 'Logged In', { timeOut: 3000 });
           this.router.navigate(['']);
         },
         (error) => {

@@ -4,7 +4,7 @@ const colors = require('colors')
 const PORT = process.env.PORT || 5000
 const connectDB = require('./config/db')
 const router = require('./routes/user.routes')
-const galRouter = require('./routes/gallery.routes')
+const movieRouter = require('./routes/movie.routes')
 const cors = require('cors')
 
 console.log('Connecting to database...')
@@ -27,7 +27,7 @@ app.post('/', (req, res) => {
   res.json({ message: 'main post' })
 })
 app.use('/api/users', router)
-app.use('/api/images', galRouter)
+app.use('/api/movies', movieRouter)
 
 app.listen(PORT, () => {
   console.log(`Server Started, Listening to ${PORT}`)

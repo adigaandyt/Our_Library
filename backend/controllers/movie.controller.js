@@ -30,3 +30,40 @@ const deleteMovie = asyncHanlder(async (req, res) => {
     Movie.findOneAndDelete({ title })
   }
 })
+
+const deleteReview = asyncHanlder(async (req, res) => {
+  const { isadmin, title } = req.body
+
+  if (isadmin) {
+    Movie.findOneAndDelete({ title })
+  }
+})
+
+const addReview = asyncHanlder(async (req, res) => {
+  const { isadmin, title } = req.body
+
+  if (isadmin) {
+    Movie.findOneAndDelete({ title })
+  }
+})
+
+const addMovie = asyncHanlder(async (req, res) => {
+  const { isadmin, title } = req.body
+
+  if (isadmin) {
+    Movie.findOneAndDelete({ title })
+  }
+})
+
+const getMovies = asyncHanlder(async (req, res) => {})
+
+const getReviews = asyncHanlder(async (req, res) => {})
+
+module.exports = {
+  addMovie,
+  addReview,
+  deleteMovie,
+  deleteReview,
+  getMovies,
+  getReviews,
+}

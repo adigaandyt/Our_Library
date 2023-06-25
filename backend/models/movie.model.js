@@ -10,10 +10,7 @@ const Movie = mongoose.model(
         ref: 'Review',
       },
     ],
-    img: {
-      data: Buffer,
-      contentType: String,
-    },
+    img: String,
   })
 )
 
