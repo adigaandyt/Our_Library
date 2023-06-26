@@ -1,7 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, Subject, tap } from 'rxjs';
+import {
+  Observable,
+  Subject,
+  tap,
+  interval,
+  firstValueFrom,
+  BehaviorSubject,
+} from 'rxjs';
 import { Movie } from '../interfaces/movie';
+import axios from 'axios';
 
 import { HttpHeaders } from '@angular/common/http';
 
@@ -9,31 +17,60 @@ import { HttpHeaders } from '@angular/common/http';
   providedIn: 'root',
 })
 export class MoviesService {
+  //Share movie list between components
+  private movieList = new BehaviorSubject<object>({});
+  currentMovieList = this.movieList.asObservable();
+
   authToken: any;
   myUser: any;
-  private url = 'http://localhost:8000';
+  private url = 'http://localhost:8000/api/movies';
 
   constructor(private httpClient: HttpClient) {}
 
   addMovie(movie: Movie) {
+    let urlPath = '/new_movie';
     this.loadToken();
-    let payload: HttpHeaders = new HttpHeaders();
-    payload = payload.append(
-      'Content-Type',
-      'application/x-www-form-urlencoded'
-    );
-    payload = payload.append('Authorization', 'Bearer ' + this.authToken);
-    payload = payload.append('New_Movie', movie.toString());
+    movie.auth = 'Bearer ' + this.authToken;
+    let payload = <JSON>movie;
+
     if (localStorage.getItem('isAdmin')) {
       return this.httpClient
-        .post('http://localhost:8000/api/movies/new_movie', payload, {
+        .post(this.url + urlPath, payload, {
           responseType: 'text',
         })
         .subscribe();
     } else {
       return 'Not an admin';
-      console.log('not an admin');
     }
+  }
+
+  async getMovies() {
+    let returnData;
+    let urlPath = '/';
+
+    await axios
+      .get(this.url + urlPath)
+      .then((respone) => {
+        returnData = respone.data;
+        this.movieList.next(returnData); //update global movie list
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    return returnData;
+    /*
+    const response = await this.httpClient
+      .get(this.url + urlPath, {
+        responseType: 'json',
+      })
+      .subscribe((data: any) => {
+        returnData = data;
+        console.log(data);
+      });
+    console.log(returnData);
+    return returnData;
+      */
   }
 
   loadToken() {

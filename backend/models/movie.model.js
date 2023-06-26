@@ -11,6 +11,7 @@ const Movie = mongoose.model(
       },
     ],
     img: String,
+    desc: String,
   })
 )
 

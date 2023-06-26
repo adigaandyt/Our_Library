@@ -4,17 +4,5 @@
 <!-- non admins will open a movie and press a + sign to add a review -->
 
 <div class="content mt-2">
-  <div fxLayout="row wrap center center" fxLayoutGap="12px grid">
-    <div
-      fx-layout-align-stretch
-      fx-layout-align-space-evenly-stretch
-      *ngFor="let num of [1, 2, 3, 4, 7, 8]"
-    >
-      <app-movie-card
-        [img]="message"
-        [desc]="message"
-        [title]="message"
-      ></app-movie-card>
-    </div>
-  </div>
+  <app-movie-card-list></app-movie-card-list>
 </div>

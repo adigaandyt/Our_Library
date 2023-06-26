@@ -1,2 +1,12 @@
 <!--This component gets the data and injects it into cards creating a list of cards-->
-<p>movie-card-list works!</p>
+
+<div
+  fxLayout="row wrap center center"
+  fxLayoutGap="12px grid"
+  fx-layout-align-stretch
+  fx-layout-align-space-evenly-stretch
+  *ngFor="let item of data"
+  class="p-2"
+>
+  <app-movie-card [cardData]="item"></app-movie-card>
+</div>

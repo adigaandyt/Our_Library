@@ -5,20 +5,16 @@ const User = require('../models/user.model')
 const colors = require('colors')
 
 const protect = asyncHandler(async (req, res, next) => {
+  //const { authorization } = req.body
+
   let token
-  console.log('---------------req-------------')
-  const authorizationValue = req.body.lazyUpdate.find(
-    (item) => item.name === 'Authorization'
-  ).value
-  console.log(authorizationValue)
-  console.log('-------------------------------')
   if (
     //Check if the given token exists and starts with bearer(JSON web token should)
-    req.headers.authorization &&
-    req.headers.authorization.startsWith('Bearer ')
+    req.body.auth &&
+    req.body.auth.startsWith('Bearer ')
   ) {
     try {
-      const auth = req.headers.authorization.toString() //grab the whole auth
+      const auth = req.body.auth.toString() //grab the whole auth
       token = auth.split(' ')[1] //grab the token part (remove bearer)
       const decoded = jwt.verify(token, process.env.JWT_KEY) //verify the token
 

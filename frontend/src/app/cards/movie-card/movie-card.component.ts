@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-movie-card',
@@ -6,19 +7,19 @@ import { Component, Input, OnInit } from '@angular/core';
   styleUrls: ['./movie-card.component.css'],
 })
 export class MovieCardComponent implements OnInit {
-  @Input() img: string;
-  @Input() title: string;
-  @Input() desc: string;
+  @Input() cardData: any;
+  title: string = 'title';
+  desc: string = 'desc';
+  img: string = '';
+  id: string;
 
-  constructor() {}
+  constructor(private routerLink: Router) {}
 
-  ngOnInit(): void {}
-
-  movie = {
-    title: 'woods',
-    desc: 'some long descrption',
-    _id: 'beeg long id !@#!@#',
-    imageUrl:
-      'https://marketplace.canva.com/EAFH3gODxw4/1/0/1131w/canva-black-%26-white-modern-mystery-forest-movie-poster-rLty9dwhGG4.jpg',
-  };
+  ngOnInit(): void {
+    //console.log(this.cardData);
+    this.img = this.cardData.img;
+    this.title = this.cardData.title;
+    this.desc = this.cardData.desc;
+    this.id = this.cardData._id;
+  }
 }

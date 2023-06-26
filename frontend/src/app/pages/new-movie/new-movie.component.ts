@@ -34,9 +34,5 @@ export class NewMovieComponent {
       desc: this.regForm.value.desc?.toString(),
     };
     this.moviesService.addMovie(newMovie);
-
-    console.log(this.regForm.value.img);
-    console.log(this.regForm.value.title);
-    console.log(this.regForm.value.desc);
   }
 }

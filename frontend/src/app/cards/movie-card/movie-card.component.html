@@ -1,10 +1,12 @@
 <!-- Cards that will show on the main page, will contain movie title overrall rating -->
 <!--Maybe a picture -->
-<div class="card" style="width: 18rem">
-  <img class="card-img-top" [src]="movie.imageUrl" alt="Movie Image" />
-  <div class="card-body">
-    <h5 class="card-title">{{ title }}</h5>
-    <p class="card-text">{{ desc }}</p>
-    <a routerLink="/movies/123" class="btn btn-primary">Reviews</a>
+<form>
+  <div class="card">
+    <img class="card-img-top" [src]="img" alt="Movie Image" />
+    <div class="card-body">
+      <h5 class="card-title">{{ title }}</h5>
+      <p rows="5" class="card-text">{{ desc }}</p>
+      <a routerLink="/movies/{{ id }}" class="btn btn-primary">Reviews</a>
+    </div>
   </div>
-</div>
+</form>

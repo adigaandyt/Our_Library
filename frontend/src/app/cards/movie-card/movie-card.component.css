@@ -1,0 +1,16 @@
+.card{
+    width: 18rem;
+    
+}
+.card-img-top {
+    height: 400px;
+}
+p {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* number of lines to show */
+            line-clamp: 2;
+    -webkit-box-orient: vertical;
+    height: 40px;
+  }
