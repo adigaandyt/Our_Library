@@ -1,41 +1,18 @@
 <!-- Page where users add reviews to existing movies -->
 <!-- after pressing in + sign in the movie reviews page u come here to add a new review -->
 <!-- This page will just have a text box and a slider to select a rating and submit -->
-<form>
-  <div class="input-group mt-3">
-    <div class="input-group-prepend">
-      <span class="input-group-text" id="inputGroup-sizing-default"
-        >Movie Title</span
-      >
-    </div>
-    <input
-      type="text"
-      class="form-control"
-      aria-label="Default"
-      aria-describedby="inputGroup-sizing-default"
-    />
-  </div>
+<form [formGroup]="regForm" (ngSubmit)="newReviewSubmit()">
   <div class="form-group">
     <div class="form-group textarea">
       <label for="exampleFormControlTextarea1">Review: </label>
       <textarea
+        formControlName="review"
         class="form-control"
         id="exampleFormControlTextarea1"
         rows="8"
       ></textarea>
     </div>
 
-    <button type="button" class="btn btn-primary mt-3">Submit</button>
-  </div>
-
-  <div class="mt-4">
-    <label for="customRange2">Example range</label>
-    <input
-      type="range"
-      class="custom-range"
-      min="1"
-      max="10"
-      id="customRange2"
-    />
+    <button type="submit" class="btn btn-primary mt-3">Submit</button>
   </div>
 </form>

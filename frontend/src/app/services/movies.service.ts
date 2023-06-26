@@ -73,6 +73,32 @@ export class MoviesService {
       */
   }
 
+  addReview(review: string, movieId: string) {
+    console.log(review);
+    console.log(movieId);
+
+    let urlPath = '/new_review';
+    this.loadToken();
+    let auth = 'Bearer ' + this.authToken;
+    let payload = {
+      review: review,
+      movie_id: movieId,
+      auth: auth,
+      user: localStorage.getItem['name'],
+    };
+
+    if (localStorage.getItem('id_token')) {
+      return this.httpClient
+        .post(this.url + urlPath, payload, {
+          responseType: 'text',
+        })
+        .subscribe();
+    } else {
+      console.log('not a user');
+      return 'Not a user';
+    }
+  }
+
   loadToken() {
     const token = localStorage.getItem('id_token');
     this.authToken = token;

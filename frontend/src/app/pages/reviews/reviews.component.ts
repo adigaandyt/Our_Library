@@ -12,6 +12,8 @@ export class ReviewsComponent {
   desc: string;
   movie_id: string = '';
   movielist: any;
+  id: any;
+  id2: any;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -24,6 +26,8 @@ export class ReviewsComponent {
       (response) => (this.movielist = response)
     );
     let currMovie = this.movielist.find((i: any) => i._id === this.movie_id);
+    this.id = currMovie._id;
+
     console.log(currMovie);
     this.title = currMovie.title;
     this.desc = currMovie.desc;

@@ -6,6 +6,8 @@ const asyncHanlder = require('express-async-handler')
 const User = require('../models/user.model')
 const Movie = require('../models/movie.model')
 const Review = require('../models/review.model')
+const mongoose = require('mongoose')
+const objectId = require('mongoose').ObjectId
 
 //@desc add a new movie to database
 //@route /api/movies/new_movie
@@ -45,11 +47,20 @@ const deleteReview = asyncHanlder(async (req, res) => {
 })
 
 const addReview = asyncHanlder(async (req, res) => {
-  const { isadmin, title } = req.body
+  const { movie_id, review, auth, user } = req.body
 
-  if (isadmin) {
-    Movie.findOneAndDelete({ title })
+  const newReview = {
+    movie_id,
+    review,
+    user,
   }
+
+  const updatedMovie = await Movie.findOneAndUpdate(
+    { _id: mongoose.Types.objectId(movie_id) },
+    { $push: { review: { review } } },
+    { new: true }
+  )
+  console.log(updatedMovie)
 })
 
 //@desc return all the movies in the database

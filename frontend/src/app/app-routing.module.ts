@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'add_movie', component: NewMovieComponent },
   { path: 'new_review', component: NewReviewComponent },
   { path: 'movies/:id', component: ReviewsComponent },
+  { path: 'movies/:id/add_review', component: NewReviewComponent },
 ];
 
 @NgModule({
