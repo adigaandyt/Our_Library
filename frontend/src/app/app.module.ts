@@ -18,6 +18,7 @@ import { NavBarComponent } from './shared/nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { ReviewsModalComponent } from './modal/reviews-modal/reviews-modal.component';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
     MovieCardListComponent,
     ReviewCardListComponent,
     NavBarComponent,
+    ReviewsModalComponent,
   ],
   imports: [
     BrowserModule,

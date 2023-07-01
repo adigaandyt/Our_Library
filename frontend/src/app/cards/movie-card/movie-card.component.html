@@ -6,7 +6,60 @@
     <div class="card-body">
       <h5 class="card-title">{{ title }}</h5>
       <p rows="5" class="card-text">{{ desc }}</p>
-      <a routerLink="/movies/{{ id }}" class="btn btn-primary">Reviews</a>
+      <a type="button" class="btn btn-primary" (click)="openPopup()">
+        Reviews
+      </a>
     </div>
   </div>
 </form>
+
+<div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{ display: displayStyle }"
+>
+  <div class="modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div style="text-align: center">
+          <img class="card-img-top" [src]="img" alt="Movie Image" />
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="16"
+            height="16"
+            fill="currentColor"
+            class="bi bi-plus-circle"
+            viewBox="0 0 16 16"
+            type="button"
+            routerLink="/movies/{{ id }}/add_review"
+          >
+            <path
+              d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"
+            />
+            <path
+              d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z"
+            />
+          </svg>
+        </div>
+        <div>
+          <h4>
+            title
+            <p>this is a disc</p>
+          </h4>
+        </div>
+      </div>
+      <div class="modal-body" *ngFor="let item of review_data">
+        <app-review-card
+          [username]="item.username"
+          [review]="item.review"
+        ></app-review-card>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

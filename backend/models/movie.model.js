@@ -6,8 +6,8 @@ const Movie = mongoose.model(
     title: String,
     review: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Review',
+        username: String,
+        review: String,
       },
     ],
     img: String,

@@ -12,6 +12,7 @@ export class MovieCardComponent implements OnInit {
   desc: string = 'desc';
   img: string = '';
   id: string;
+  review_data: any;
 
   constructor(private routerLink: Router) {}
 
@@ -21,5 +22,15 @@ export class MovieCardComponent implements OnInit {
     this.title = this.cardData.title;
     this.desc = this.cardData.desc;
     this.id = this.cardData._id;
+    this.review_data = this.cardData.review;
+  }
+
+  displayStyle = 'none';
+
+  openPopup() {
+    this.displayStyle = 'block';
+  }
+  closePopup() {
+    this.displayStyle = 'none';
   }
 }

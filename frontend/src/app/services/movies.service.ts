@@ -84,7 +84,7 @@ export class MoviesService {
       review: review,
       movie_id: movieId,
       auth: auth,
-      user: localStorage.getItem['name'],
+      user: localStorage.getItem('name'),
     };
 
     if (localStorage.getItem('id_token')) {

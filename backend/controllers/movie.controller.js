@@ -47,20 +47,17 @@ const deleteReview = asyncHanlder(async (req, res) => {
 })
 
 const addReview = asyncHanlder(async (req, res) => {
-  const { movie_id, review, auth, user } = req.body
+  const { movie_id, review, user } = req.body
+  let id = new mongoose.Types.ObjectId(movie_id)
 
   const newReview = {
-    movie_id,
-    review,
-    user,
+    username: user,
+    review: review,
   }
-
-  const updatedMovie = await Movie.findOneAndUpdate(
-    { _id: mongoose.Types.objectId(movie_id) },
-    { $push: { review: { review } } },
-    { new: true }
-  )
-  console.log(updatedMovie)
+  //Find the movie, add the new review, save it (gets updated in db)
+  const currentMovie = await Movie.findById(id)
+  currentMovie.review = [...currentMovie.review, newReview]
+  currentMovie.save()
 })
 
 //@desc return all the movies in the database

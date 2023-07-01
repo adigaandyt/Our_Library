@@ -14,3 +14,26 @@ p {
     -webkit-box-orient: vertical;
     height: 40px;
   }
+  
+  .modal-lg{
+    width: 60%;
+    margin: auto;
+  }
+
+  .modal-header{
+    background-color: aliceblue;
+  }
+
+  .modal-header > .card-img-top{
+    height: 200px;
+    width: auto;
+    margin-left: 5%;
+  }
+
+
+  .modal-header > h4{
+    
+    position: relative;
+    vertical-align: top;
+    text-align: left;
+  }
