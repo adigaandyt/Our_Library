@@ -25,15 +25,10 @@ p {
   }
 
   .modal-header > .card-img-top{
-    height: 200px;
-    width: auto;
+    height: 300px;
     margin-left: 5%;
+    width: auto;
+    text-align: center
   }
 
 
-  .modal-header > h4{
-    
-    position: relative;
-    vertical-align: top;
-    text-align: left;
-  }

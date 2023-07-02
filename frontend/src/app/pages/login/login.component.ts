@@ -40,7 +40,7 @@ export class LoginComponent {
         (response) => {
           this.userService.storeUserData(response);
           this.toastr.success('Successfully', 'Logged In', { timeOut: 3000 });
-          this.router.navigate(['']);
+          this.router.navigate(['/']);
         },
         (error) => {
           alert('Invalid Credentials');

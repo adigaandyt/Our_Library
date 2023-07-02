@@ -10,6 +10,10 @@ import { Location } from '@angular/common';
   styleUrls: ['./nav-bar.component.css'],
 })
 export class NavBarComponent {
+  loginVisible: string = '';
+  registerVisible: string = '';
+  logoutVisible: string = '';
+
   constructor(
     private userService: UsersService,
     private toastr: ToastrService,
@@ -23,6 +27,17 @@ export class NavBarComponent {
       this.isHidden = '';
     } else {
       this.isHidden = 'hidden';
+    }
+
+    //If user is logged in, only show logout
+    if (localStorage.getItem('name') != null) {
+      this.loginVisible = 'true';
+      this.registerVisible = 'true';
+      this.logoutVisible = '';
+    } else {
+      this.loginVisible = '';
+      this.registerVisible = '';
+      this.logoutVisible = 'true';
     }
   }
   //name: string = localStorage.['name']
