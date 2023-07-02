@@ -28,6 +28,11 @@ In the 2st terminal do
 
 4- You should see blue underlined text saying 'MongoDB connected....'
 
+
+## admin user
+Admin users are set manually in mongodb atlas
+you can log in the exisitng one with the username and password 'admin'
+
 ## .env
 
 .env folder holds the mongodb link and secret key
