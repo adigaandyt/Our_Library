@@ -6,12 +6,14 @@ const connectDB = require('./config/db')
 const router = require('./routes/user.routes')
 const movieRouter = require('./routes/movie.routes')
 const cors = require('cors')
+const path = require('path');
 
 console.log('Connecting to database...')
 connectDB()
 
 //requests will be sent as a urlencoded JSON
 const app = express()
+app.use(express.static(path.join(__dirname, 'public'))); //Serve static files
 app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
@@ -20,6 +22,10 @@ app.get('/', (req, res) => {
   console.log('main get')
   res.json({ message: 'main get' })
 })
+
+app.get(/^\/(?!api).*/, (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 //Routes
 app.post('/', (req, res) => {
