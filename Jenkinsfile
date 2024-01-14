@@ -49,7 +49,7 @@ pipeline {
                         else
                             echo "Test container is not running."
                         fi
-                        docker compose up -d e IMAGE_TAG=pre-test
+                        docker compose run -d -e IMAGE_TAG=pre-test
                     """
                 }
             }
