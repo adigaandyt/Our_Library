@@ -64,7 +64,7 @@ pipeline {
                 retry(2) {
                     sleep(time: 5, unit: 'SECONDS')
                     sh """
-                        curl -i ${CONTAINER_NAME}:8080
+                        curl -i ${CONTAINER_NAME}:8000
                     """
                 }
                 sh "docker stop ${CONTAINER_NAME}"
