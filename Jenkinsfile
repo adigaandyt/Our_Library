@@ -37,6 +37,8 @@ pipeline {
         //Build the image and give it a pre-test tag until it passes the tests
         //Also make sure containers aren't running from previous runs
         //I could make image name and container names as variables in the compose file but there's no need
+        //TODO: MAKE IT WORK WITH DOCKER COMPOSE THERES
+        //TODO: FIX THE NETWORK ISSUE WITH DOCKER COMPOSE
         stage('Build') {
             steps {
                 echo '++++++++++BUILD IMAGE++++++++++'
@@ -49,7 +51,7 @@ pipeline {
                         else
                             echo "Test container is not running."
                         fi
-                        docker compose up -d
+                        docker run --name ourlib-cont -d --rm -p 8000:8000 --network art-network ourlib-img:pre-test
                     """
                 }
             }
