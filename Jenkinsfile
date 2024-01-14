@@ -3,13 +3,16 @@ pipeline {
     agent any
 
     environment {
-        ECR_LINK = '644435390668.dkr.ecr.il-central-1.amazonaws.com'
+        ECR_LINK = '644435390668.dkr.ecr.eu-north-1.amazonaws.com'
         OUTPUT_VERSION = ''
+        IMAGE_NAME = "ourlib-img"
+        CONTAINER_NAME = "ourlib-cont"
     }
 
     stages {
         stage('Setup environment') {
             steps {
+                echo "++++++++++ENV SETUP++++++++++"
                 script {
                     if (BRANCH_NAME == 'main') { env.DEPLOY_PORT = '80' }
                     else if (BRANCH_NAME == 'staging') { env.DEPLOY_PORT = '3000' }
@@ -18,8 +21,9 @@ pipeline {
             }
         }
         
-        stage('Checkout Branch') {
+        stage('Checkout Source') {
             steps {
+                echo "++++++++++CHECKOUT SOURCE++++++++++"
                 script {
                     sh """
                         echo "Push from branch - ${BRANCH_NAME}"
@@ -30,18 +34,22 @@ pipeline {
             }
         }
 
+        //Build the image and give it a pre-test tag until it passes the tests
+        //Also make sure containers aren't running from previous runs
+        //I could make image name and container names as variables in the compose file but there's no need
         stage('Build') {
             steps {
+                echo "++++++++++BUILD IMAGE++++++++++"
                 script {
                     sh """
-                        docker build -t cowsay-img:${env.FULL_TAG} ${WORKSPACE}
-                        if docker ps | grep -q "cowsay-cont"; then
-                            echo "Stopping old cowsay- container..."
-                            docker stop cowsay-cont
+                        docker build -t ${IMAGE_NAME}:pre-test ${WORKSPACE}
+                        if docker ps | grep -q "${IMAGE_NAME}"; then
+                            echo "Stopping old test container..."
+                            docker stop ${CONTAINER_NAME}
                         else
-                            echo "cowsay container is not running."
+                            echo "Test container is not running."
                         fi
-                        docker run --rm --detach --network=jenkins --name=cowsay-cont cowsay-img:${env.FULL_TAG}
+                        docker-compose up -d -e IMAGE_TAG=pre-test
                     """
                 }
             }
@@ -50,13 +58,14 @@ pipeline {
         //Simple curl to test it's working
         stage('Local Test') {
             steps {
+                echo "++++++++++LOCAL UNIT TEST++++++++++"
                 retry(2) {
                     sleep(time: 5, unit: 'SECONDS')
-                    sh '''
-                        curl -i cowsay-cont:8080
-                    '''
+                    sh """
+                        curl -i ${CONTAINER_NAME}:8080
+                    """
                 }
-                sh 'docker stop cowsay-cont'
+                sh "docker stop ${CONTAINER_NAME}"
             }
         }
 
@@ -66,7 +75,6 @@ pipeline {
 
         stage('Push To ECR') {
             steps {
-                echo ">>>>>PUSH TO ECR<<<<<<<"
                 withCredentials([usernamePassword(credentialsId:'ECR-REPO-LINK', usernameVariable:'ECR_SERVER')]) {
                     sh """
                         docker tag cowsay-img:${env.FULL_TAG} "${ECR_SERVER}:${env.FULL_TAG}"

@@ -1,0 +1,9 @@
+version: '3'
+
+services:
+  ourlib-cont:
+    image: ourlib-img:${IMAGE_TAG}
+    container_name: ourlib-cont
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
