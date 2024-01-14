@@ -111,6 +111,7 @@ pipeline {
             echo 'Cleaning up workspace...'
             deleteDir()
             cleanWs()
+            //sh "docker stop ${CONTAINER_NAME}"
         }
     }
 }
