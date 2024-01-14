@@ -7,3 +7,9 @@ services:
     ports:
       - "8000:8000"
     restart: unless-stopped
+    networks:
+      - art-network
+
+networks:
+  art-network:
+    driver: bridge
