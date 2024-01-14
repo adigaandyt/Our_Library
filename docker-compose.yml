@@ -12,3 +12,5 @@ services:
 
 networks:
   art-network:
+    name: art-network
+    driver: bridge
