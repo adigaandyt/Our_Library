@@ -49,7 +49,7 @@ pipeline {
                         else
                             echo "Test container is not running."
                         fi
-                        docker compose run -d
+                        docker compose up -d
                     """
                 }
             }
