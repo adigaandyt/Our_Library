@@ -80,7 +80,7 @@ pipeline {
                 echo '++++++++++PUSH ECR++++++++++'
                 sh """
                     docker tag ${IMAGE_NAME}:pre-test "${ECR_LINK}/our_library:${env.FULL_TAG}"
-                    aws ecr get-login-password --region eu-north-1 | docker login --username AWS --password-stdin ${ECR_LINK}
+                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${ECR_LINK}
                     docker push ${ECR_LINK}/our_library:${env.FULL_TAG}
                 """
             }
