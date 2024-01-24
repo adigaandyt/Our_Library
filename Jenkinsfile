@@ -3,7 +3,7 @@ pipeline {
     agent any
 
     environment {
-        ECR_LINK = '644435390668.dkr.ecr.eu-north-1.amazonaws.com'
+        ECR_LINK = '644435390668.dkr.ecr.eu-west-1.amazonaws.com'
         OUTPUT_VERSION = ''
         IMAGE_NAME = 'ourlib-img'
         CONTAINER_NAME = 'ourlib-cont'
