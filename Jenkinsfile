@@ -11,6 +11,8 @@ pipeline {
         IMAGE_NAME = 'ourlib-img'
         CONTAINER_NAME = 'ourlib-cont'
         newTagVersion = ''
+        APP_REPO = 'git@github.com:adigaandyt/Our_Library.git'
+        GITOPS_REPO = 'git@github.com:adigaandyt/ourlibrary_gitops.git'
     }
 
     stages {
@@ -79,16 +81,6 @@ pipeline {
         //TODO: add versioning along with the branch name
         //Using the amazon ECR plugin
 
-        stage('Push To ECR') {
-            steps {
-                echo '++++++++++PUSH ECR++++++++++'
-                sh """
-                    docker tag ${IMAGE_NAME}:pre-test "${ECR_LINK}/our_library:${env.FULL_TAG}"
-                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_LINK}
-                    docker push ${ECR_LINK}/our_library:${env.FULL_TAG}
-                """
-            }
-        }
 
         stage('Handle versioning') {
             steps {
@@ -134,13 +126,29 @@ pipeline {
             }
         }
 
+        stage('Push To ECR') {
+            steps {
+                echo '++++++++++PUSH ECR++++++++++'
+                sh """
+                    docker tag ${IMAGE_NAME}:pre-test "${ECR_LINK}/our_library:${newTagVersion}"
+                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_LINK}
+                    docker push ${ECR_LINK}/our_library:${newTagVersion}
+                """
+            }
+        }
+
         //TODO: Only increase tag when there's a git message saying so
         stage('Tag GIT') {
             steps {
                 script {
                     echo '++++++++++Add Git Tag++++++++++'
-                    sh "git tag ${newTagVersion}"
-                    sh "git push origin ${newTagVersion}"
+                    sshagent(['jenkins-ssh']) {
+                        sh """
+                            git remote set-url origin ${APP_REPO}
+                            git tag ${newTagVersion}
+                            git push --tags
+                        """
+                    }
                 }
             }
         }
