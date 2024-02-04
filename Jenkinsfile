@@ -160,8 +160,8 @@ pipeline {
                     sshagent(['jenkins-ssh']) {
                         sh """
                             git clone ${GITOPS_REPO}
-                            def valuesFilePath = "./ourlibrary_gitops/ourlibrary-chart/values.yaml"
-                            def valuesFileContent = readFile(valuesFilePath)
+                            valuesFilePath = "./ourlibrary_gitops/ourlibrary-chart/values.yaml"
+                            valuesFileContent = readFile(valuesFilePath)
                             valuesFileContent = valuesFileContent.replaceAll('tag: [0-9]+\\.[0-9]+\\.[0-9]+', "tag: ${newTagVersion}")
                             writeFile(file: valuesFilePath, text: valuesFileContent)
                             cd ourlibrary_gitops
