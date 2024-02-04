@@ -22,8 +22,7 @@ export class RegisterComponent implements OnInit {
     name: new FormControl(''),
     email: new FormControl(''),
     password: new FormControl(''),
-    password2: new FormControl(''),
-    isAdmin: true
+    password2: new FormControl('')
   });
 
   url = 'http://ourlib.ddns.net:80/api/users/register'; // Replace with your backend URL
