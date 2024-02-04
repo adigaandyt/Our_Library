@@ -1,9 +1,12 @@
 /* groovylint-disable NestedBlockDepth */
+//Top level def for the whole pipeline
+
 pipeline {
     agent any
 
     environment {
         ECR_LINK = '644435390668.dkr.ecr.eu-west-1.amazonaws.com'
+        REGION = 'eu-west-1'
         OUTPUT_VERSION = ''
         IMAGE_NAME = 'ourlib-img'
         CONTAINER_NAME = 'ourlib-cont'
@@ -80,32 +83,41 @@ pipeline {
                 echo '++++++++++PUSH ECR++++++++++'
                 sh """
                     docker tag ${IMAGE_NAME}:pre-test "${ECR_LINK}/our_library:${env.FULL_TAG}"
-                    aws ecr get-login-password --region eu-west-1 | docker login --username AWS --password-stdin ${ECR_LINK}
+                    aws ecr get-login-password --region ${REGION} | docker login --username AWS --password-stdin ${ECR_LINK}
                     docker push ${ECR_LINK}/our_library:${env.FULL_TAG}
                 """
             }
         }
 
-        // Pull on EC2 and deploy it
-        // stage('Deploy to EC2') {
-        //     when { expression { return BRANCH_NAME == 'main' || BRANCH_NAME == 'staging' } }
-        //     steps {
-        //         echo '---------------TRYING TO DEPLOY---------------'
-        //         withCredentials([
-        //                 [usernamePassword(credentialsId: 'EC2_INSTANCE', usernameVariable:'EC2_SERVER')],
-        //                 [usernamePassword(credentialsId: 'ECR-REPO-LINK', usernameVariable:'ECR_SERVER')]
-        //             ]) {
-        //                 echo "EC2 Server: $EC2_SERVER"
-        //                 echo "ECR Server: $ECR_SERVER"
-        //                 sshagent(['EC2-SSH-PrivateKey']) {
-        //                     sh """
-        //                         ssh $EC2_SERVER "docker pull $ECR_SERVER:$BRANCH_NAME-$BUILD_NUMBER"
-        //                         ssh $EC2_SERVER "docker run -d -p $env.DEPLOY_PORT:8080 $ECR_SERVER:$BRANCH_NAME-$BUILD_NUMBER"
-        //                     """
-        //                 }
-        //             }
-        //     }
-        // }
+        stage('Handle versioning') {
+            steps {
+                //Check the release num from branch
+                //Check max tag
+                //maxtag++
+                echo '++++++++++Handle new version++++++++++'
+                script {
+                    // sshagent(['jenny-ssh']) {
+                     //   sh 'git fetch --tags'
+                    // }
+                    sh 'git fetch --tags'
+                    major_version = BRANCH_NAME.replaceAll('release/', '')
+                    tags = sh(script: 'git tag', returnStdout: true).trim()
+                    tagsArr = tags.split('\n')
+                    filteredArray = tagsArr.findAll { it.startsWith(major_version) }
+                    echo "$filteredArray"
+                    if (filteredArray == null || filteredArray.isEmpty()) {
+                        maxPatch = 0
+                    } else {
+                        thirdDigits = filteredArray.collect { it.split('\\.')[2].toInteger() }
+                        maxPatch = Collections.max(thirdDigits)
+                        maxPatch++
+                    }
+                    tag_version = major_version + '.' + maxPatch
+                    println('THE OUTPUT TAG : ' + tag_version)
+                }
+            }
+        }
+
     }
 
     post {
@@ -113,7 +125,7 @@ pipeline {
             echo 'Cleaning up workspace...'
             deleteDir()
             cleanWs()
-            //sh "docker stop ${CONTAINER_NAME}"
+        //sh "docker stop ${CONTAINER_NAME}"
         }
     }
 }
