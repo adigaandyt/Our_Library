@@ -35,6 +35,10 @@ app.post('/', (req, res) => {
 app.use('/api/users', router)
 app.use('/api/movies', movieRouter)
 
-app.listen(PORT, () => {
-  console.log(`Server Started, Listening to ${PORT}`)
+app.listen(80, () => {
+  console.log(`Server Started, Listening to 80`)
+})
+
+app.listen(8000, () => {
+  console.log(`Server Started, Listening to 8000`)
 })
