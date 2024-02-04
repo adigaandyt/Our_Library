@@ -11,7 +11,7 @@ export class UsersService {
   private users$: Subject<User[]> = new Subject();
   authToken: any;
   myUser: any;
-  isAdmin: boolean = false;
+  isAdmin: boolean = true;
 
   constructor(private httpClient: HttpClient) {}
 
