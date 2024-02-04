@@ -100,7 +100,7 @@ pipeline {
                      //   sh 'git fetch --tags'
                     // }
                     sh 'git fetch --tags'
-                    major_version = BRANCH_NAME.replaceAll('release/', '')
+                    major_version = BRANCH_NAME.replaceAll('main/', '')
                     tags = sh(script: 'git tag', returnStdout: true).trim()
                     tagsArr = tags.split('\n')
                     filteredArray = tagsArr.findAll { it.startsWith(major_version) }
@@ -117,6 +117,19 @@ pipeline {
                 }
             }
         }
+
+        stage('Tag GIT') {
+            steps {
+                script {
+                    echo '++++++++++Add Git Tag++++++++++'
+                        sh """
+                            git tag ${tag_version}
+                            git push --tags
+                        """
+                }
+            }
+        }
+
 
     }
 
