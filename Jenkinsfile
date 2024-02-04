@@ -91,38 +91,48 @@ pipeline {
 
         stage('Handle versioning') {
             steps {
-                //Check the release num from branch
-                //Check max tag
-                //maxtag++
                 echo '++++++++++Handle new version++++++++++'
                 script {
-                    // sshagent(['jenny-ssh']) {
-                    //   sh 'git fetch --tags'
-                    // }
+                    // Fetch tags and define initial variables
                     sh 'git fetch --tags'
                     String tagsOutput = sh(script: 'git tag', returnStdout: true).trim()
-                    def tagsArray = tagsOutput.split('\n') // Now tagsArray is an array of tags
+                    def tagsArray = tagsOutput.split('\n')
+                    int maxPatch = 0
+                    String latestTag = ''
+                    String majorVersion = '' // Assuming you will set this based on the branch name or another method
+
+                    // Find the highest patch version for the major version
                     tagsArray.each { tag ->
-                        echo "Tag: ${tag}"
+                        // Ensure the tag is relevant and follows semantic versioning
+                        if (tag.startsWith(majorVersion)) {
+                            def parts = tag.tokenize('.')
+                            if (parts.size() == 3) {
+                                int patchVersion = parts[2].toInteger()
+                                if (patchVersion >= maxPatch) {
+                                    maxPatch = patchVersion
+                                    latestTag = tag
+                                }
+                            }
+                        }
                     }
 
-                    major_version = BRANCH_NAME.replaceAll('release/', '')
-                    tags = sh(script: 'git tag', returnStdout: true).trim()
-                    tagsArr = tags.split('\n')
-                    filteredArray = tagsArr.findAll { it.startsWith(major_version) }
-                    echo "$filteredArray"
-                    if (filteredArray == null || filteredArray.isEmpty()) {
-                        maxPatch = 0
+                    // Increment the patch version for the new tag
+                    if (latestTag) {
+                        def parts = latestTag.tokenize('.')
+                        int newPatchVersion = parts[2].toInteger() + 1
+                        String newTagVersion = parts[0] + '.' + parts[1] + '.' + newPatchVersion
+                        println("New tag version: " + newTagVersion)
+                        // Here, you can now use newTagVersion for further steps, like tagging the current commit
                     } else {
-                        thirdDigits = filteredArray.collect { it.split('\\.')[2].toInteger() }
-                        maxPatch = Collections.max(thirdDigits)
-                        maxPatch++
+                        // Handle case where no existing tags match the majorVersion
+                        println("No existing tags found for the major version: ${majorVersion}. Starting at ${majorVersion}.0.1")
+                        String newTagVersion = majorVersion + ".0.1"
+                        // Use this newTagVersion as needed
                     }
-                    tag_version = major_version + '.' + maxPatch
-                    println('THE OUTPUT TAG : ' + tag_version)
                 }
             }
         }
+
 
         stage('Tag GIT') {
             steps {
