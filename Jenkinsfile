@@ -122,7 +122,7 @@ pipeline {
             steps {
                 script {
                     echo '++++++++++Add Git Tag'
-                    sshagent(['jenny-ssh']) {
+                    sshagent(['github_ssh']) {
                         sh """
                             git tag ${tag_version}
                             git push --tags
