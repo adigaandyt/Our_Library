@@ -126,6 +126,7 @@ pipeline {
                         sh """
                             git tag ${tag_version}
                             git push --tags
+                            
                         """
                     }
                 }
