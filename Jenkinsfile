@@ -140,7 +140,7 @@ pipeline {
                 script {
                     echo '++++++++++Add Git Tag++++++++++'
                     sh "git tag ${newTagVersion}"
-                    sh 'git push --tags'
+                    sh "git push origin ${newTagVersion}"
                 }
             }
         }
