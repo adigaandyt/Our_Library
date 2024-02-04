@@ -122,10 +122,8 @@ pipeline {
             steps {
                 script {
                     echo '++++++++++Add Git Tag++++++++++'
-                        sh """
-                            git tag ${tag_version}
-                            git push --tags
-                        """
+                    sh "git tag ${tag_version}"
+                    sh 'git push --tags'
                 }
             }
         }
