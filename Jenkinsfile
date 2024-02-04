@@ -10,6 +10,7 @@ pipeline {
         OUTPUT_VERSION = ''
         IMAGE_NAME = 'ourlib-img'
         CONTAINER_NAME = 'ourlib-cont'
+        newTagVersion = ''
     }
 
     stages {
@@ -133,7 +134,7 @@ pipeline {
             }
         }
 
-
+        //TODO: Only increase tag when there's a comment 
         stage('Tag GIT') {
             steps {
                 script {
