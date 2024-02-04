@@ -7,7 +7,7 @@ import { User } from '../interfaces/user';
   providedIn: 'root',
 })
 export class UsersService {
-  private url = 'http://localhost:80';
+  private url = 'http://ourlib.ddns.net:80';
   private users$: Subject<User[]> = new Subject();
   authToken: any;
   myUser: any;

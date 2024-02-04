@@ -23,7 +23,7 @@ export class MoviesService {
 
   authToken: any;
   myUser: any;
-  private url = 'http://localhost:80/api/movies';
+  private url = 'http://ourlib.ddns.net:80/api/movies';
 
   constructor(private httpClient: HttpClient) {}
 
