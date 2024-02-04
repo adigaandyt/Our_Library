@@ -121,20 +121,20 @@ pipeline {
                     if (latestTag) {
                         def parts = latestTag.tokenize('.')
                         int newPatchVersion = parts[2].toInteger() + 1
-                        String newTagVersion = parts[0] + '.' + parts[1] + '.' + newPatchVersion
+                        newTagVersion = parts[0] + '.' + parts[1] + '.' + newPatchVersion
                         println("New tag version: " + newTagVersion)
                         // Here, you can now use newTagVersion for further steps, like tagging the current commit
                     } else {
                         // Handle case where no existing tags match the majorVersion
                         println("No existing tags found for the major version: ${majorVersion}. Starting at ${majorVersion}.0.1")
-                        String newTagVersion = majorVersion + ".0.1"
+                        newTagVersion = majorVersion + ".0.1"
                         // Use this newTagVersion as needed
                     }
                 }
             }
         }
 
-        //TODO: Only increase tag when there's a comment 
+        //TODO: Only increase tag when there's a git message saying so
         stage('Tag GIT') {
             steps {
                 script {
