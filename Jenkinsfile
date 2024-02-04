@@ -45,6 +45,7 @@ pipeline {
         //I could make image name and container names as variables in the compose file but there's no need
         //TODO: MAKE IT WORK WITH DOCKER COMPOSE THERES
         //TODO: FIX THE NETWORK ISSUE WITH DOCKER COMPOSE
+        //docker run --name ourlib-cont -d --rm -p 8000:8000 --network art-network ourlib-img:pre-test
         stage('Build') {
             steps {
                 echo '++++++++++BUILD IMAGE++++++++++'
@@ -57,7 +58,8 @@ pipeline {
                         else
                             echo "Test container is not running."
                         fi
-                        docker run --name ourlib-cont -d --rm -p 8000:8000 --network art-network ourlib-img:pre-test
+                        
+                        docker run --name ourlib-cont -d --rm --network art-network ourlib-img:pre-test
                     """
                 }
             }
@@ -183,7 +185,7 @@ pipeline {
             echo 'Cleaning up workspace...'
             deleteDir()
             cleanWs()
-        //sh "docker stop ${CONTAINER_NAME}"
+        sh "docker stop ${CONTAINER_NAME}"
         }
     }
 }
