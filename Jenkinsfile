@@ -152,6 +152,30 @@ pipeline {
                 }
             }
         }
+
+        stage('GitOps Tag') {
+            steps {
+                script {
+                    echo '++++++++++GitOps Tag++++++++++'
+                    sshagent(['jenkins-ssh']) {
+                        sh """
+                            git clone ${GITOPS_REPO}
+                            def valuesFilePath = "./ourlibrary_gitops/ourlibrary-chart/values.yaml"
+                            def valuesFileContent = readFile(valuesFilePath)
+                            valuesFileContent = valuesFileContent.replaceAll('tag: [0-9]+\\.[0-9]+\\.[0-9]+', "tag: ${newTagVersion}")
+                            writeFile(file: valuesFilePath, text: valuesFileContent)
+                            cd ourlibrary_gitops
+                            git add .
+                            git commit -m "Update Helm chart tag: ${newTagVersion}"
+                            git push origin main
+                        """
+                    }
+                }
+            }
+        }
+
+
+
     }
 
     post {
