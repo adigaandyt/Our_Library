@@ -160,10 +160,10 @@ pipeline {
                     sshagent(['jenkins-ssh']) {
                         sh """
                             git clone ${GITOPS_REPO}
-                            valuesFilePath = "./ourlibrary_gitops/ourlibrary-chart/values.yaml"
-                            valuesFileContent = readFile(valuesFilePath)
-                            valuesFileContent = valuesFileContent.replaceAll('tag: [0-9]+\\.[0-9]+\\.[0-9]+', "tag: ${newTagVersion}")
-                            writeFile(file: valuesFilePath, text: valuesFileContent)
+                            valuesFilePath="./ourlibrary_gitops/ourlibrary-chart/values.yaml"
+                            valuesFileContent=\$(cat "\$valuesFilePath")
+                            valuesFileContent=\$(echo "\$valuesFileContent" | sed "s/tag: [0-9]\\+\\.[0-9]\\+\\.[0-9]\\+/tag: ${newTagVersion}/g")
+                            echo "\$valuesFileContent" > "\$valuesFilePath"
                             cd ourlibrary_gitops
                             git add .
                             git commit -m "Update Helm chart tag: ${newTagVersion}"
