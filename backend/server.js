@@ -1,7 +1,7 @@
 const express = require('express')
 const dotenv = require('dotenv').config()
 const colors = require('colors')
-const PORT = process.env.PORT || 5000
+const PORT = process.env.PORT || 80
 const connectDB = require('./config/db')
 const router = require('./routes/user.routes')
 const movieRouter = require('./routes/movie.routes')

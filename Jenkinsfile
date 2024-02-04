@@ -51,7 +51,7 @@ pipeline {
                 echo '++++++++++BUILD IMAGE++++++++++'
                 script {
                     sh """
-                        docker build -t ${IMAGE_NAME}:pre-test ${WORKSPACE}
+                        docker build --no-cache -t ${IMAGE_NAME}:pre-test ${WORKSPACE}
                         if docker ps | grep -q "${IMAGE_NAME}"; then
                             echo "Stopping old test container..."
                             docker stop ${CONTAINER_NAME}

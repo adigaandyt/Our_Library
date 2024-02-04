@@ -25,7 +25,7 @@ export class RegisterComponent implements OnInit {
     password2: new FormControl(''),
   });
 
-  url = 'http://localhost:8000/api/users/register'; // Replace with your backend URL
+  url = 'http://localhost:80/api/users/register'; // Replace with your backend URL
   headers = new HttpHeaders({ 'Content-Type': 'any' });
   payload: any = {};
 
