@@ -23,7 +23,7 @@ export class NewMovieComponent {
     title: new FormControl(''),
   });
 
-  url = 'http://localhost:8000/api/movies/new_movie'; // Replace with your backend URL
+  url = 'http://ourlib.ddns.net:80/api/movies/new_movie'; // Replace with your backend URL
 
   payload: any = {};
 

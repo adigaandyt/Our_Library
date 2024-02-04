@@ -23,7 +23,7 @@ export class LoginComponent {
     password: new FormControl(''),
   });
   //
-  url = 'http://localhost:8000/api/users/login'; // Replace with your backend URL
+  url = 'http://ourlib.ddns.net:80/api/users/login'; // Replace with your backend URL
   headers = new HttpHeaders({ 'Content-Type': 'any' });
   payload: any = {};
 
