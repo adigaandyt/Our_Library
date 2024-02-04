@@ -97,9 +97,15 @@ pipeline {
                 echo '++++++++++Handle new version++++++++++'
                 script {
                     // sshagent(['jenny-ssh']) {
-                     //   sh 'git fetch --tags'
+                    //   sh 'git fetch --tags'
                     // }
                     sh 'git fetch --tags'
+                    String tagsOutput = sh(script: 'git tag', returnStdout: true).trim()
+                    def tagsArray = tagsOutput.split('\n') // Now tagsArray is an array of tags
+                    tagsArray.each { tag ->
+                        echo "Tag: ${tag}"
+                    }
+
                     major_version = BRANCH_NAME.replaceAll('release/', '')
                     tags = sh(script: 'git tag', returnStdout: true).trim()
                     tagsArr = tags.split('\n')
@@ -121,19 +127,16 @@ pipeline {
         stage('Tag GIT') {
             steps {
                 script {
-                    echo '++++++++++Add Git Tag'
+                    echo '++++++++++Add Git Tag++++++++++'
                     sshagent(['jenkins-ssh']) {
                         sh """
                             git tag ${tag_version}
                             git push --tags
-                            
                         """
                     }
                 }
             }
         }
-
-
     }
 
     post {
