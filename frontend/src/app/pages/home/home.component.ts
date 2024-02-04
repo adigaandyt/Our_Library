@@ -13,6 +13,8 @@ export class HomeComponent {
 
   ngOnInit(): void {
     console.log(localStorage.getItem('isAdmin'));
-    this.userAdmin = 'true';
+      this.userAdmin = 'true';
+  }
+
   message = "I'm passing data";
 }
