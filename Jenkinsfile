@@ -139,12 +139,8 @@ pipeline {
             steps {
                 script {
                     echo '++++++++++Add Git Tag++++++++++'
-                    sshagent(['jenkins-ssh']) {
-                        sh """
-                            git tag ${newTagVersion}
-                            git push --tags
-                        """
-                    }
+                    git tag ${newTagVersion}
+                    git push --tags
                 }
             }
         }
