@@ -122,7 +122,7 @@ pipeline {
             steps {
                 script {
                     echo '++++++++++Add Git Tag'
-                    sshagent(['github_ssh']) {
+                    sshagent(['jenkins-ssh']) {
                         sh """
                             git tag ${tag_version}
                             git push --tags
