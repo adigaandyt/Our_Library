@@ -19,5 +19,5 @@ FROM node:20.10.0-alpine
 WORKDIR /app
 COPY --from=frontend-builder /frontend/dist/frontend ./public
 COPY --from=backend-builder /backend ./
-EXPOSE 8000
+EXPOSE 80
 CMD ["node", "server.js"]
