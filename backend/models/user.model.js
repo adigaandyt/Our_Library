@@ -18,7 +18,7 @@ const User = mongoose.model(
     isAdmin: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
   })
 )
