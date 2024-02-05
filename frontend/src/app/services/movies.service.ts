@@ -49,7 +49,7 @@ export class MoviesService {
     let urlPath = '/';
 
     await axios
-      .get(this.url + urlPath)
+      .get("http://localhost:80/api/movies" + urlPath)
       .then((respone) => {
         returnData = respone.data;
         this.movieList.next(returnData); //update global movie list

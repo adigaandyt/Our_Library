@@ -16,7 +16,7 @@ export class UsersService {
   constructor(private httpClient: HttpClient) {}
 
   private refreshEmployees() {
-    this.httpClient.get<User[]>(`${this.url}/api/users`).subscribe((users) => {
+    this.httpClient.get<User[]>(`http://localhost:80/api/movies/api/users`).subscribe((users) => {
       this.users$.next(users);
     });
   }
